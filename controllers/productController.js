@@ -68,7 +68,6 @@ export const createProductController = async(req,res)=>{
 
 export const getProductController = async(req,res)=>{
   try{
-      // console.log("first")
     const products = await productModel.find({}).populate('category').select("-slug");
     // const products = await productModel.find({}).select("-photo");
     // it will return everything except photo
@@ -94,7 +93,6 @@ export const getSingleProductController= async(req,res)=>{
   try{
     console.log("get single product controller")
     const product = await productModel.findOne({_id:req.params?.id}).select("-slug").populate("category");
-    console.log(product+"using product");
     if(product === null){
       return res.status(404).send({
         message:"no such product is present",
@@ -142,7 +140,7 @@ export const updateProductController = async (req, res) => {
   try {
     const {name, description, price, category, quantity, shipping} = req.body;
     const photo = req.file?.filename;
-    console.log(photo);
+    // console.log(photo);
     
     // console.log(name, description, price, category, quantity, shipping);
     // validation
@@ -379,23 +377,3 @@ export const successfullPaymentController = async(req,res)=>{
 }
 
 
-// export const orderStatusController = async(req,res) => {
-//   try {
-//     const {orderid} = req.params;
-//     console.log(orderid);
-//     const {status} = req.body;
-//     console.log(status);
-//     console.log("first")
-//     // const orders = await orderModel.findByIdAndUpdate(orderId,{status},{new:true});
-//     res.status(200).send({
-//       msg:"hi"
-//     })
-//   } catch (error) {
-//     console.log(error);
-//     res.status(404).send({
-//       message: "error in updatin order status",
-//       success: false,
-//       error,
-//     });
-//   }
-// };
